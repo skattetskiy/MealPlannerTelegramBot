@@ -11,9 +11,14 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
             telegram_id BIGINT UNIQUE NOT NULL,
-            name TEXT NOT NULL,     -- Имя пользователя
-            diet_preferences TEXT,  -- Диетические предпочтения
-            goals TEXT              -- Цели питания
+            name TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS meals (
+            id SERIAL PRIMARY KEY,
+            telegram_id BIGINT NOT NULL,
+            name TEXT NOT NULL,
+            meal_time TEXT NOT NULL,
+            FOREIGN KEY (telegram_id) REFERENCES users(telegram_id) ON DELETE CASCADE
         );
         """)
         conn.commit()
