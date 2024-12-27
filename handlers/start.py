@@ -40,6 +40,8 @@ async def set_bot_commands(bot: Bot):
         BotCommand(command="start", description="Начать работу с ботом"),
         BotCommand(command="help", description="Список доступных команд"),
         BotCommand(command="addmeal", description="Добавить блюдо в план питания"),
+        BotCommand(command="deletemeal", description="Удалить блюдо из плана питания"),
         BotCommand(command="viewplan", description="Посмотреть текущий план питания"),
+
     ]
     await bot.set_my_commands(commands)
