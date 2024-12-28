@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from config import API_TOKEN
-from handlers.planner import planner_router
+from handlers.common import planner_router
 from handlers.start import start_router, set_bot_commands
 from database import init_db
 import logging
@@ -15,6 +15,7 @@ dp = Dispatcher()
 dp.include_router(start_router)
 dp.include_router(planner_router)
 
+
 async def main():
     logger.info("Инициализация базы данных...")
     init_db()
@@ -27,6 +28,7 @@ async def main():
     logger.info("Запуск бота...")
     await dp.start_polling(bot)
     logger.info("Бот запущен и начинает обработку сообщений.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
