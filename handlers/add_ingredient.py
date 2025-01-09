@@ -66,7 +66,7 @@ async def handle_product_selection(callback: CallbackQuery):
     with conn.cursor() as cursor:
         cursor.execute(
             """
-            INSERT INTO ingredients (telegram_id, name, weight, proteins, fats, carbohydrates)
+            INSERT INTO ingredients (telegram_id, name, weight, protein, fat, carbohydrates)
             VALUES (%s, %s, %s, %s, %s, %s)
             """,
             (
@@ -111,7 +111,7 @@ async def handle_view_ingredients(callback: CallbackQuery):
     with conn.cursor() as cursor:
         cursor.execute(
             """
-            SELECT name, weight, proteins, fats, carbohydrates 
+            SELECT name, weight, protein, fat, carbohydrates 
             FROM ingredients 
             WHERE telegram_id = %s
             """,

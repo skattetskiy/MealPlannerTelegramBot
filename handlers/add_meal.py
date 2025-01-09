@@ -257,7 +257,7 @@ async def enter_servings_count(message: Message):
     cursor = conn.cursor()
 
     for ingredient_name in selected_ingredients:
-        cursor.execute("SELECT proteins, fats, carbohydrates, weight FROM ingredients WHERE name = %s", (ingredient_name,))
+        cursor.execute("SELECT protein, fat, carbohydrates, weight FROM ingredients WHERE name = %s", (ingredient_name,))
         ingredient_data = cursor.fetchone()
         if ingredient_data:
             proteins, fats, carbohydrates, weight = ingredient_data

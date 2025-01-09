@@ -25,9 +25,15 @@ def search_product(query):
 
 def get_product_nutrition(product_id):
     nutrition_url = f"https://api.spoonacular.com/food/ingredients/{product_id}/information"
-    response = requests.get(nutrition_url, params={"apiKey": API_KEY, "amount": 100})
+    response = requests.get(nutrition_url, params={"apiKey": API_KEY, "amount": 100, "unit": "g"})
     if response.status_code == 200:
         data = response.json()
+        print({
+            "name": data["name"],
+            "proteins": data["nutrition"]["nutrients"][0]["amount"],  # Белки
+            "fats": data["nutrition"]["nutrients"][1]["amount"],  # Жиры
+            "carbohydrates": data["nutrition"]["nutrients"][2]["amount"],  # Углеводы
+        })
         return {
             "name": data["name"],
             "proteins": data["nutrition"]["nutrients"][0]["amount"],  # Белки
