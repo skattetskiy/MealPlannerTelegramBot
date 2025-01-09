@@ -30,9 +30,11 @@ async def help_command_handler(message: Message):
         "/start - Начать работу с ботом\n"
         "/help - Список доступных команд\n"
         "/addmeal - Добавить блюдо в план питания\n"
-        "/addingredient - Добавить ингредиент в план питания\n"
         "/removemeal - Удалить блюдо из плана питания\n"
         "/viewplan - Посмотреть текущий план питания\n"
+        "/addingredient - Добавить ингредиент\n"
+        "/viewingredient - Посмотреть ингредиенты\n"
+        "/removeingredient - Удалить ингредиенты\n"
     )
     await message.answer(help_text)
 
@@ -45,6 +47,8 @@ async def set_bot_commands(bot: Bot):
         BotCommand(command="removemeal", description="Удалить блюдо из плана питания"),
         BotCommand(command="viewplan", description="Посмотреть текущий план питания"),
         BotCommand(command="addingredient", description="Добавить ингредиент"),
+        BotCommand(command="viewingredient", description="Посмотреть ингредиенты"),
+        BotCommand(command="removeingredient", description="Удалить ингредиенты"),
 
     ]
     await bot.set_my_commands(commands)

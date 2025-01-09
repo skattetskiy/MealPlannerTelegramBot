@@ -312,6 +312,8 @@ async def enter_servings_count(message: Message):
     keyboard.button(text="Просмотреть план питания", callback_data="view_plan")
     keyboard.adjust(1)
 
+    user_states[user_id]["step"] = "waiting_for_meal_choice"
+
     await message.answer("Что вы хотите сделать дальше?", reply_markup=keyboard.as_markup())
 
 
