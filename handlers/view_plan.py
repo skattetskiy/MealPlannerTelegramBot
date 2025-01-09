@@ -10,7 +10,7 @@ def generate_plan_summary(telegram_id):
     with conn.cursor() as cursor:
         # Изменяем запрос для сортировки по времени приема пищи
         cursor.execute(
-            "SELECT name, meal_time, weight, proteins, fats, carbohydrates, servings FROM meals WHERE telegram_id = %s ORDER BY meal_time",
+            "SELECT name, meal_time, weight, protein, fat, carbohydrates, servings FROM meals WHERE telegram_id = %s ORDER BY meal_time",
             (telegram_id,)
         )
         meals = cursor.fetchall()
@@ -38,11 +38,11 @@ def generate_plan_summary(telegram_id):
             if current_meal_time is not None:
                 # Добавляем общую информацию по предыдущему времени приема пищи
                 data = plan_summary[current_meal_time]
-                response += f"\n\nОбщий вес приёма пищи ({meal_time_translation[current_meal_time]}): {data['total_weight']} г"
-                response += f"\nОбщий вес белков: {data['total_proteins']} г"
-                response += f"\nОбщий вес жиров: {data['total_fats']} г"
-                response += f"\nОбщий вес углеводов: {data['total_carbohydrates']} г"
-                response += f"\nКоличество приёмов пищи за {meal_time_translation[current_meal_time]}: {data['meal_count']}\n"
+                response += f"\n\nОбщий вес приёма пищи ({meal_time_translation[current_meal_time]}): {round(data['total_weight'], 2)} г"
+                response += f"\nОбщий вес белков: {round(data['total_proteins'], 2)} г"
+                response += f"\nОбщий вес жиров: {round(data['total_fats'], 2)} г"
+                response += f"\nОбщий вес углеводов: {round(data['total_carbohydrates'], 2)} г"
+                response += f"\nКоличество порций за {meal_time_translation[current_meal_time]}: {data['meal_count']}\n"
 
             # Обновляем текущий meal_time и добавляем его название
             current_meal_time = meal_time
@@ -59,11 +59,11 @@ def generate_plan_summary(telegram_id):
         # Формируем ответ по каждому блюду
         meal_details = (
             f"Блюдо: {meal_name}\n\n"
-            f"Вес: {weight} г\n"
-            f"Белки: {proteins} г\n"
-            f"Жиры: {fats} г\n"
-            f"Углеводы: {carbohydrates} г\n"
-            f"Количество приемов пищи: {servings}\n\n"
+            f"Вес: {round(weight, 2)} г\n"
+            f"Белки: {round(proteins, 2)} г\n"
+            f"Жиры: {round(fats, 2)} г\n"
+            f"Углеводы: {round(carbohydrates, 2)} г\n"
+            f"Количество порций: {servings}\n\n"
         )
 
         response += meal_details
@@ -79,11 +79,11 @@ def generate_plan_summary(telegram_id):
     # Добавляем общую информацию для последнего времени приема пищи
     if current_meal_time is not None:
         data = plan_summary[current_meal_time]
-        response += f"\n\nОбщий вес приёма пищи ({meal_time_translation[current_meal_time]}): {data['total_weight']} г"
-        response += f"\nОбщий вес белков: {data['total_proteins']} г"
-        response += f"\nОбщий вес жиров: {data['total_fats']} г"
-        response += f"\nОбщий вес углеводов: {data['total_carbohydrates']} г"
-        response += f"\nКоличество приёмов пищи за {meal_time_translation[current_meal_time]}: {data['meal_count']}"
+        response += f"\n\nОбщий вес приёма пищи ({meal_time_translation[current_meal_time]}): {round(data['total_weight'], 2)} г"
+        response += f"\nОбщий вес белков: {round(data['total_proteins'], 2)} г"
+        response += f"\nОбщий вес жиров: {round(data['total_fats'], 2)} г"
+        response += f"\nОбщий вес углеводов: {round(data['total_carbohydrates'], 2)} г"
+        response += f"\nКоличество порций за {meal_time_translation[current_meal_time]}: {data['meal_count']}"
 
     conn.close()
     return response
